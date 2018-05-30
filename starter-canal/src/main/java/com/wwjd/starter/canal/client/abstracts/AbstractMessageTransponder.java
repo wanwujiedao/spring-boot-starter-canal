@@ -4,8 +4,7 @@ import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.protocol.Message;
 import com.alibaba.otter.canal.protocol.exception.CanalClientException;
 import com.wwjd.starter.canal.client.core.ListenerPoint;
-import com.wwjd.starter.canal.client.interfaces.CanalContentEventListener;
-import com.wwjd.starter.canal.client.interfaces.CanalTableEventListener;
+import com.wwjd.starter.canal.client.interfaces.CanalEventListener;
 import com.wwjd.starter.canal.client.interfaces.MessageTransponder;
 import com.wwjd.starter.canal.config.CanalConfig;
 import org.slf4j.Logger;
@@ -42,9 +41,8 @@ public abstract class AbstractMessageTransponder implements MessageTransponder {
 	/**
 	 * 实现接口的 canal 监听器(上：表内容，下：表结构)
 	 */
-	protected final List<CanalContentEventListener> contentListeners = new ArrayList<>();
+	protected final List<CanalEventListener> listeners = new ArrayList<>();
 	
-	protected final List<CanalTableEventListener> tableListeners = new ArrayList<>();
 	
 	/**
 	 * 通过注解方式的 canal 监听器
@@ -64,17 +62,16 @@ public abstract class AbstractMessageTransponder implements MessageTransponder {
 	/**
 	 * 构造方法，初始化参数
 	 *
-	 * @param connector        canal 连接器
-	 * @param config           canal 连接配置
-	 * @param contentListeners 实现接口层的 canal 监听器（表数据）
-	 * @param tableListeners   实现接口层的 canal 监听器(表结构)
-	 * @param annoListeners    通过注解方式的 canal 监听器
+	 * @param connector     canal 连接器
+	 * @param config        canal 连接配置
+	 * @param listeners     实现接口层的 canal 监听器(表结构)
+	 * @param annoListeners 通过注解方式的 canal 监听器
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 16:10
 	 * @CopyRight 万物皆导
 	 */
-	public AbstractMessageTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalContentEventListener> contentListeners, List<CanalTableEventListener> tableListeners, List<ListenerPoint> annoListeners) {
+	public AbstractMessageTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalEventListener> listeners, List<ListenerPoint> annoListeners) {
 		//参数处理
 		Objects.requireNonNull(connector, "连接器不能为空!");
 		Objects.requireNonNull(config, "配置信息不能为空!");
@@ -82,12 +79,10 @@ public abstract class AbstractMessageTransponder implements MessageTransponder {
 		this.connector = connector;
 		this.destination = config.getKey();
 		this.config = config.getValue();
-		if (contentListeners != null) {
-			this.contentListeners.addAll(contentListeners);
+		if (listeners != null) {
+			this.listeners.addAll(listeners);
 		}
-		if (tableListeners != null) {
-			this.tableListeners.addAll(tableListeners);
-		}
+		
 		if (annoListeners != null) {
 			this.annoListeners.addAll(annoListeners);
 		}

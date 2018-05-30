@@ -21,13 +21,12 @@ public interface TransponderFactory {
 	/**
 	 * @param connector        canal 连接工具
 	 * @param config           canal 链接信息
-	 * @param contentListeners 监听拦截（表数据）
-	 * @param tableListeners   监听拦截（表结构）
+	 * @param listeners 实现接口的监听器
 	 * @param annoListeners    注解监听拦截
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 14:43
 	 * @CopyRight 万物皆导
 	 */
-	MessageTransponder newTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalContentEventListener> contentListeners, List<CanalTableEventListener> tableListeners, List<ListenerPoint> annoListeners);
+	MessageTransponder newTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalEventListener> listeners, List<ListenerPoint> annoListeners);
 }

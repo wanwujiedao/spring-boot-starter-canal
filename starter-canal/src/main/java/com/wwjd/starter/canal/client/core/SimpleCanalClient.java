@@ -3,8 +3,7 @@ package com.wwjd.starter.canal.client.core;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.wwjd.starter.canal.annotation.ListenPoint;
 import com.wwjd.starter.canal.client.abstracts.AbstractCanalClient;
-import com.wwjd.starter.canal.client.interfaces.CanalContentEventListener;
-import com.wwjd.starter.canal.client.interfaces.CanalTableEventListener;
+import com.wwjd.starter.canal.client.interfaces.CanalEventListener;
 import com.wwjd.starter.canal.config.CanalConfig;
 import com.wwjd.starter.canal.util.BeanUtil;
 import org.slf4j.Logger;
@@ -38,8 +37,7 @@ public class SimpleCanalClient extends AbstractCanalClient {
 	/**
 	 * 通过实现接口的监听器
 	 */
-	protected final List<CanalContentEventListener> contentListeners = new ArrayList<>();
-	protected final List<CanalTableEventListener> tableListeners = new ArrayList<>();
+	protected final List<CanalEventListener> listeners = new ArrayList<>();
 	
 	/**
 	 * 通过注解的方式实现的监听器
@@ -80,7 +78,7 @@ public class SimpleCanalClient extends AbstractCanalClient {
 	 */
 	@Override
 	protected void process(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config) {
-		executor.submit(factory.newTransponder(connector, config, contentListeners, tableListeners, annoListeners));
+		executor.submit(factory.newTransponder(connector, config, listeners, annoListeners));
 	}
 	
 	/**
@@ -113,17 +111,13 @@ public class SimpleCanalClient extends AbstractCanalClient {
 	private void initListeners() {
 		logger.info("{}: 监听器正在初始化....", Thread.currentThread().getName());
 		//获取监听器
-		List<CanalContentEventListener> listForContent = BeanUtil.getBeansOfType(CanalContentEventListener.class);
-		List<CanalTableEventListener> listForTable = BeanUtil.getBeansOfType(CanalTableEventListener.class);
+		List<CanalEventListener> list = BeanUtil.getBeansOfType(CanalEventListener.class);
 		//若没有任何监听的，我也不知道引入这个 jar 干什么，直接返回吧
-		if (listForContent != null) {
+		if (list != null) {
 			//若存在目标监听，放入 listenerMap
-			contentListeners.addAll(listForContent);
+			listeners.addAll(list);
 		}
-		//这里监听表结构的操作
-		if (listForTable != null) {
-			tableListeners.addAll(listForTable);
-		}
+		
 		//若是你喜欢通过注解的方式去监听的话。。
 		Map<String, Object> listenerMap = BeanUtil.getBeansWithAnnotation(com.wwjd.starter.canal.annotation.CanalEventListener.class);
 		//也放入 map
@@ -145,7 +139,7 @@ public class SimpleCanalClient extends AbstractCanalClient {
 		//初始化监听结束
 		logger.info("{}: 监听器初始化完成.", Thread.currentThread().getName());
 		//整个项目上下文都没发现监听器。。。
-		if (logger.isWarnEnabled() && contentListeners.isEmpty() && tableListeners.isEmpty() && annoListeners.isEmpty()) {
+		if (logger.isWarnEnabled() && listeners.isEmpty() && annoListeners.isEmpty()) {
 			logger.warn("{}: 该项目中没有任何监听的目标! ", Thread.currentThread().getName());
 		}
 	}

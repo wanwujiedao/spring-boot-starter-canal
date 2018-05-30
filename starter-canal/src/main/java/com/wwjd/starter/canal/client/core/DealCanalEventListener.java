@@ -2,10 +2,7 @@ package com.wwjd.starter.canal.client.core;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.wwjd.starter.canal.client.abstracts.option.AbstractDBOption;
-import com.wwjd.starter.canal.client.abstracts.option.content.DeleteOption;
-import com.wwjd.starter.canal.client.abstracts.option.content.InsertOption;
-import com.wwjd.starter.canal.client.abstracts.option.content.UpdateOption;
-import com.wwjd.starter.canal.client.interfaces.CanalContentEventListener;
+import com.wwjd.starter.canal.client.interfaces.CanalEventListener;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -18,7 +15,8 @@ import java.util.List;
  * @created 2018年05月28日 20:13:00
  * @Modified_By 阿导 2018/5/28 20:13
  */
-public class DealCanalEventListener implements CanalContentEventListener {
+@SuppressWarnings("all")
+public class DealCanalEventListener implements CanalEventListener {
 	
 	/**
 	 * 頭結點
@@ -28,37 +26,37 @@ public class DealCanalEventListener implements CanalContentEventListener {
 	/**
 	 * 默認構造方法，必須傳入鏈路
 	 *
+	 * @param dbOptions
+	 * @return
 	 * @author 阿导
 	 * @time 2018/5/30 17:46
 	 * @CopyRight 杭州弧途科技有限公司（青团社）
-	 * @param dbOptions
-	 * @return
 	 */
 	public DealCanalEventListener(AbstractDBOption... dbOptions) {
-		AbstractDBOption tmp=null;
-		for(AbstractDBOption dbOption:dbOptions){
-			if(tmp!=null){
+		AbstractDBOption tmp = null;
+		for (AbstractDBOption dbOption : dbOptions) {
+			if (tmp != null) {
 				tmp.setNext(dbOption);
-			}else{
-				this.header=dbOption;
+			} else {
+				this.header = dbOption;
 			}
-			tmp=dbOption;
+			tmp = dbOption;
 		}
 		
 	}
 	
-	public DealCanalEventListener(List<AbstractDBOption> dbOptions){
-		if(CollectionUtils.isEmpty(dbOptions)){
+	public DealCanalEventListener(List<AbstractDBOption> dbOptions) {
+		if (CollectionUtils.isEmpty(dbOptions)) {
 			return;
 		}
-		AbstractDBOption tmp=null;
-		for(AbstractDBOption dbOption:dbOptions){
-			if(tmp!=null){
+		AbstractDBOption tmp = null;
+		for (AbstractDBOption dbOption : dbOptions) {
+			if (tmp != null) {
 				tmp.setNext(dbOption);
-			}else{
-				this.header=dbOption;
+			} else {
+				this.header = dbOption;
 			}
-			tmp=dbOption;
+			tmp = dbOption;
 		}
 	}
 	

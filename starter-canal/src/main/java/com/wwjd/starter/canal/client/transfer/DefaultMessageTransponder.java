@@ -6,11 +6,8 @@ import com.wwjd.starter.canal.annotation.ListenPoint;
 import com.wwjd.starter.canal.client.abstracts.AbstractBasicMessageTransponder;
 import com.wwjd.starter.canal.client.core.CanalMsg;
 import com.wwjd.starter.canal.client.core.ListenerPoint;
-import com.wwjd.starter.canal.client.interfaces.CanalContentEventListener;
-import com.wwjd.starter.canal.client.interfaces.CanalTableEventListener;
+import com.wwjd.starter.canal.client.interfaces.CanalEventListener;
 import com.wwjd.starter.canal.config.CanalConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
@@ -30,8 +27,8 @@ import java.util.function.Predicate;
 public class DefaultMessageTransponder extends AbstractBasicMessageTransponder {
 	
 	
-	public DefaultMessageTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalContentEventListener> contentListeners, List<CanalTableEventListener> tableListeners, List<ListenerPoint> annoListeners) {
-		super(connector, config, contentListeners, tableListeners, annoListeners);
+	public DefaultMessageTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalEventListener> listeners, List<ListenerPoint> annoListeners) {
+		super(connector, config, listeners, annoListeners);
 	}
 	
 	

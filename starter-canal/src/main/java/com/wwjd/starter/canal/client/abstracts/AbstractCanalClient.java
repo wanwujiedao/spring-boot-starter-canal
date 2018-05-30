@@ -57,7 +57,7 @@ public abstract class AbstractCanalClient implements CanalClient {
 		Objects.requireNonNull(canalConfig, "transponderFactory 不能为空!");
 		//初始化配置
 		this.canalConfig = canalConfig;
-		this.factory = (connector, config, contentListeners, tableListeners, annoListeners) -> new DefaultMessageTransponder(connector, config, contentListeners, tableListeners, annoListeners);
+		this.factory = (connector, config,listeners, annoListeners) -> new DefaultMessageTransponder(connector, config, listeners, annoListeners);
 		;
 	}
 	

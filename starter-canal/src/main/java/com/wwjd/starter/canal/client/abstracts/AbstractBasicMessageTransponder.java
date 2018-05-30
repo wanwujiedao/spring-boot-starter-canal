@@ -7,8 +7,7 @@ import com.wwjd.starter.canal.annotation.ListenPoint;
 import com.wwjd.starter.canal.client.core.CanalMsg;
 import com.wwjd.starter.canal.client.core.ListenerPoint;
 import com.wwjd.starter.canal.client.exception.CanalClientException;
-import com.wwjd.starter.canal.client.interfaces.CanalContentEventListener;
-import com.wwjd.starter.canal.client.interfaces.CanalTableEventListener;
+import com.wwjd.starter.canal.client.interfaces.CanalEventListener;
 import com.wwjd.starter.canal.config.CanalConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,18 +34,17 @@ public abstract class AbstractBasicMessageTransponder extends AbstractMessageTra
 	private final static Logger logger = LoggerFactory.getLogger(AbstractBasicMessageTransponder.class);
 	
 	/**
-	 * @param connector        canal 连接器
-	 * @param config           canal 连接配置
-	 * @param contentListeners 实现接口层的 canal 监听器（表数据）
-	 * @param tableListeners   实现接口层的 canal 监听器(表结构)
-	 * @param annoListeners    通过注解方式的 canal 监听器
+	 * @param connector     canal 连接器
+	 * @param config        canal 连接配置
+	 * @param listeners     实现接口层的 canal 监听器
+	 * @param annoListeners 通过注解方式的 canal 监听器
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 16:27
 	 * @CopyRight 万物皆导
 	 */
-	public AbstractBasicMessageTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalContentEventListener> contentListeners, List<CanalTableEventListener> tableListeners, List<ListenerPoint> annoListeners) {
-		super(connector, config, contentListeners, tableListeners, annoListeners);
+	public AbstractBasicMessageTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalEventListener> listeners, List<ListenerPoint> annoListeners) {
+		super(connector, config, listeners, annoListeners);
 	}
 	
 	/**
@@ -97,7 +95,7 @@ public abstract class AbstractBasicMessageTransponder extends AbstractMessageTra
 	 * @param destination canal 指令
 	 * @param schemaName  实例名称
 	 * @param tableName   表名称
-	 * @param rowChange     数据
+	 * @param rowChange   数据
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 16:35
@@ -109,7 +107,7 @@ public abstract class AbstractBasicMessageTransponder extends AbstractMessageTra
 	                                      CanalEntry.RowChange rowChange) {
 		
 		//对注解的监听器进行事件委托
-		if(!CollectionUtils.isEmpty(annoListeners)) {
+		if (!CollectionUtils.isEmpty(annoListeners)) {
 			annoListeners.forEach(point -> point
 					.getInvokeMap()
 					.entrySet()
@@ -152,8 +150,8 @@ public abstract class AbstractBasicMessageTransponder extends AbstractMessageTra
 	                                String schemaName,
 	                                String tableName,
 	                                CanalEntry.RowChange rowChange) {
-		if (contentListeners != null) {
-			for (CanalContentEventListener listener : contentListeners) {
+		if (listeners != null) {
+			for (CanalEventListener listener : listeners) {
 				listener.onEvent(destination, schemaName, tableName, rowChange);
 			}
 		}
@@ -180,7 +178,7 @@ public abstract class AbstractBasicMessageTransponder extends AbstractMessageTra
 	 *
 	 * @param method    委托处理的方法
 	 * @param canalMsg  其他信息
-	 * @param rowChange   处理的数据
+	 * @param rowChange 处理的数据
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 16:30
