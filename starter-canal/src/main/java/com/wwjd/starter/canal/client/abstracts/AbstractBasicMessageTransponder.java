@@ -201,7 +201,7 @@ public abstract class AbstractBasicMessageTransponder extends AbstractMessageTra
 				.getInvokeMap()
 				.entrySet()
 				.stream()
-				.filter(getAnnotationFilter(destination, rowChange.getDdlSchemaName(), null, null))
+				.filter(getAnnotationFilter(destination, rowChange.getDdlSchemaName(), null, rowChange.getEventType()))
 				.forEach(entry -> {
 					Method method = entry.getKey();
 					method.setAccessible(true);
