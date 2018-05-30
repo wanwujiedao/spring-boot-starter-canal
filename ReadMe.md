@@ -120,8 +120,8 @@
 
            
            #是否是集群模式
-           canal.client.instances.${wwjd}.clusterEnabled=[true,false]
-           canal.client.instances.${wwjd}.cluster-enabled=[true,false]
+           canal.client.instances.${wwjd}.clusterEnabled=true
+           canal.client.instances.${wwjd}.cluster-enabled=true
            
            #zookeeper 地址
            canal.client.instances.${wwjd}.zookeeperAddress=127.0.0.1:2181,127.1.1.1:2187
@@ -138,7 +138,7 @@
            canal.client.instances.${wwjd}.user-name=root
     
            #集群 设置的密码
-           canal.client.instances.${wwjd}.password=1221wwjd
+           canal.client.instances.${wwjd}.password=123456
     
             
            #批量从 canal 服务器获取数据的最多数目
