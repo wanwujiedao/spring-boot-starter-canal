@@ -29,7 +29,6 @@ import java.util.function.Predicate;
  */
 public class DefaultMessageTransponder extends AbstractBasicMessageTransponder {
 	
-	private final static Logger logger = LoggerFactory.getLogger(DefaultMessageTransponder.class);
 	
 	public DefaultMessageTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalContentEventListener> contentListeners, List<CanalTableEventListener> tableListeners, List<ListenerPoint> annoListeners) {
 		super(connector, config, contentListeners, tableListeners, annoListeners);
@@ -52,19 +51,19 @@ public class DefaultMessageTransponder extends AbstractBasicMessageTransponder {
 	protected Predicate<Map.Entry<Method, ListenPoint>> getAnnotationFilter(String destination, String schemaName, String tableName, CanalEntry.EventType eventType) {
 		//看看指令是否正确
 		Predicate<Map.Entry<Method, ListenPoint>> df = e -> StringUtils.isEmpty(e.getValue().destination())
-				|| e.getValue().destination().equals(destination)||destination==null;
+				|| e.getValue().destination().equals(destination) || destination == null;
 		
 		//看看数据库实例名是否一样
 		Predicate<Map.Entry<Method, ListenPoint>> sf = e -> e.getValue().schema().length == 0
-				|| Arrays.stream(e.getValue().schema()).anyMatch(s -> s.equals(schemaName))||schemaName==null;
+				|| Arrays.stream(e.getValue().schema()).anyMatch(s -> s.equals(schemaName)) || schemaName == null;
 		
 		//看看表名是否一样
 		Predicate<Map.Entry<Method, ListenPoint>> tf = e -> e.getValue().table().length == 0
-				|| Arrays.stream(e.getValue().table()).anyMatch(t -> t.equals(tableName))||tableName==null;
+				|| Arrays.stream(e.getValue().table()).anyMatch(t -> t.equals(tableName)) || tableName == null;
 		
 		//类型一致？
 		Predicate<Map.Entry<Method, ListenPoint>> ef = e -> e.getValue().eventType().length == 0
-				|| Arrays.stream(e.getValue().eventType()).anyMatch(ev -> ev == eventType)||eventType==null;
+				|| Arrays.stream(e.getValue().eventType()).anyMatch(ev -> ev == eventType) || eventType == null;
 		
 		return df.and(sf).and(tf).and(ef);
 	}
@@ -74,17 +73,16 @@ public class DefaultMessageTransponder extends AbstractBasicMessageTransponder {
 	 *
 	 * @param method    监听的方法
 	 * @param canalMsg  事件节点
-	 * @param eventType 参数类型
-	 * @param rowData   数据差异
+	 * @param rowChange 詳細參數
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 17:18
 	 * @CopyRight 万物皆导
 	 */
 	@Override
-	protected Object[] getInvokeArgs(Method method, CanalMsg canalMsg, CanalEntry.EventType eventType, CanalEntry.RowData rowData, CanalEntry.RowChange rowChange) {
+	protected Object[] getInvokeArgs(Method method, CanalMsg canalMsg, CanalEntry.RowChange rowChange) {
 		return Arrays.stream(method.getParameterTypes())
-				.map(p -> p == CanalEntry.EventType.class ? eventType : p == CanalEntry.RowData.class ? rowData : p == CanalMsg.class ? canalMsg : p == CanalEntry.RowChange.class ? rowChange : null)
+				.map(p -> p == CanalMsg.class ? canalMsg : p == CanalEntry.RowChange.class ? rowChange : null)
 				.toArray();
 	}
 	

@@ -3,8 +3,8 @@ package com.wwjd.starter.canal.client.abstracts;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.exception.CanalClientException;
-import com.wwjd.starter.canal.client.core.ListenerPoint;
-import com.wwjd.starter.canal.client.interfaces.*;
+import com.wwjd.starter.canal.client.interfaces.CanalClient;
+import com.wwjd.starter.canal.client.interfaces.TransponderFactory;
 import com.wwjd.starter.canal.client.transfer.DefaultMessageTransponder;
 import com.wwjd.starter.canal.config.CanalConfig;
 import org.apache.commons.lang.StringUtils;
@@ -45,11 +45,11 @@ public abstract class AbstractCanalClient implements CanalClient {
 	/**
 	 * 构造方法，初始化 canal 的配置以及转换信息的工厂实例
 	 *
+	 * @param canalConfig
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 15:04
 	 * @CopyRight 万物皆导
-	 * @param canalConfig
 	 */
 	protected AbstractCanalClient(CanalConfig canalConfig) {
 		//参数校验
@@ -57,19 +57,18 @@ public abstract class AbstractCanalClient implements CanalClient {
 		Objects.requireNonNull(canalConfig, "transponderFactory 不能为空!");
 		//初始化配置
 		this.canalConfig = canalConfig;
-//		this.factory = factory;
-		this.factory = (connector, config, contentListeners, tableListeners, annoListeners) -> new DefaultMessageTransponder(connector, config, contentListeners,tableListeners, annoListeners);
+		this.factory = (connector, config, contentListeners, tableListeners, annoListeners) -> new DefaultMessageTransponder(connector, config, contentListeners, tableListeners, annoListeners);
 		;
 	}
 	
 	/**
 	 * 别拦我，我想开启 canal 客户端
 	 *
+	 * @param
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 15:05
 	 * @CopyRight 万物皆导
-	 * @param
 	 */
 	@Override
 	public void start() {
@@ -85,23 +84,23 @@ public abstract class AbstractCanalClient implements CanalClient {
 	/**
 	 * 初始化 canal 连接
 	 *
+	 * @param connector
+	 * @param config
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 15:06
 	 * @CopyRight 万物皆导
-	 * @param connector
-	 * @param config
 	 */
 	protected abstract void process(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config);
 	
 	/**
 	 * 处理 canal 连接实例
 	 *
+	 * @param instanceEntry
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 15:11
 	 * @CopyRight 万物皆导
-	 * @param instanceEntry
 	 */
 	private CanalConnector processInstanceEntry(Map.Entry<String, CanalConfig.Instance> instanceEntry) {
 		//获取配置
@@ -148,11 +147,11 @@ public abstract class AbstractCanalClient implements CanalClient {
 	/**
 	 * 获取 canal 配置
 	 *
+	 * @param
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 15:09
 	 * @CopyRight 万物皆导
-	 * @param
 	 */
 	protected Map<String, CanalConfig.Instance> getConfig() {
 		//canal 配置
@@ -169,11 +168,11 @@ public abstract class AbstractCanalClient implements CanalClient {
 	/**
 	 * 停止 canal 客户端
 	 *
+	 * @param
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 15:08
 	 * @CopyRight 万物皆导
-	 * @param
 	 */
 	@Override
 	public void stop() {
@@ -183,11 +182,11 @@ public abstract class AbstractCanalClient implements CanalClient {
 	/**
 	 * 返回 canal 客户端的状态
 	 *
+	 * @param
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 15:08
 	 * @CopyRight 万物皆导
-	 * @param
 	 */
 	@Override
 	public boolean isRunning() {
@@ -197,11 +196,11 @@ public abstract class AbstractCanalClient implements CanalClient {
 	/**
 	 * 设置 canal 客户端状态
 	 *
+	 * @param running
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 15:07
 	 * @CopyRight 万物皆导
-	 * @param running
 	 */
 	private void setRunning(boolean running) {
 		this.running = running;

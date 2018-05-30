@@ -1,7 +1,7 @@
 package com.wwjd.starter.canal.client.abstracts.option.content;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
-import com.wwjd.starter.canal.client.abstracts.option.AbstractDBContentOption;
+import com.wwjd.starter.canal.client.abstracts.option.AbstractDBOption;
 
 /**
  * 新增数据
@@ -12,7 +12,7 @@ import com.wwjd.starter.canal.client.abstracts.option.AbstractDBContentOption;
  * @Modified_By 阿导 2018/5/29 08:58
  */
 
-public abstract class InsertOption extends AbstractDBContentOption {
+public abstract class InsertOption extends AbstractDBOption {
 	
 	
 	/**

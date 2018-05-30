@@ -1,23 +1,25 @@
-package com.wwjd.starter.canal.annotation;
+package com.wwjd.starter.canal.annotation.table;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
+import com.wwjd.starter.canal.annotation.ListenPoint;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
 
 /**
- * 次改字段属性监听器
+ * 刪除表操作監聽器
  *
  * @author 阿导
  * @CopyRight 万物皆导
- * @created 2018年05月28日 19:40:00
- * @Modified_By 阿导 2018/5/28 19:40
+ * @created 2018年05月28日 19:27:00
+ * @Modified_By 阿导 2018/5/28 19:27
  */
+
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@ListenPoint(eventType = CanalEntry.EventType.ALTER)
-public @interface AlertTableListenPoint {
+@ListenPoint(eventType = CanalEntry.EventType.ERASE)
+public @interface DropTableListenPoint {
 	/**
 	 * canal 指令
 	 * default for all
@@ -40,16 +42,4 @@ public @interface AlertTableListenPoint {
 	 */
 	@AliasFor(annotation = ListenPoint.class)
 	String[] schema() default {};
-	
-	/**
-	 * 监听的表
-	 * default for all
-	 *
-	 * @return canal destination
-	 * @author 阿导
-	 * @time 2018/5/28 15:50
-	 * @CopyRight 万物皆导
-	 */
-	@AliasFor(annotation = ListenPoint.class)
-	String[] table() default {};
 }

@@ -3,7 +3,7 @@ package com.wwjd.canal.canaltest.test;
 import com.wwjd.starter.canal.client.abstracts.option.content.DeleteOption;
 import com.wwjd.starter.canal.client.abstracts.option.content.InsertOption;
 import com.wwjd.starter.canal.client.abstracts.option.content.UpdateOption;
-import com.wwjd.starter.canal.client.core.DealContentCanalEventListener;
+import com.wwjd.starter.canal.client.core.DealCanalEventListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -17,10 +17,10 @@ import org.springframework.stereotype.Component;
  * @Modified_By 阿导 2018/5/28 17:31
  */
 @Component
-public class MyContentEventListenerimpl extends DealContentCanalEventListener {
+public class MyEventListenerimpl extends DealCanalEventListener {
 	
 	@Autowired
-	public MyContentEventListenerimpl(@Qualifier("realInsertOptoin") InsertOption insertOption, @Qualifier("realDeleteOption") DeleteOption deleteOption, @Qualifier("realUpdateOption") UpdateOption updateOption) {
+	public MyEventListenerimpl(@Qualifier("realInsertOptoin") InsertOption insertOption, @Qualifier("realDeleteOption") DeleteOption deleteOption, @Qualifier("realUpdateOption") UpdateOption updateOption) {
 		super(insertOption, deleteOption, updateOption);
 	}
 	

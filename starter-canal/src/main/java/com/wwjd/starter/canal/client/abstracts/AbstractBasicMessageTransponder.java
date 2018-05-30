@@ -12,6 +12,7 @@ import com.wwjd.starter.canal.client.interfaces.CanalTableEventListener;
 import com.wwjd.starter.canal.config.CanalConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -74,36 +75,63 @@ public abstract class AbstractBasicMessageTransponder extends AbstractMessageTra
 			try {
 				//获取信息改变
 				rowChange = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
+				
 			} catch (Exception e) {
 				throw new CanalClientException("错误 ##转换错误 , 数据信息:" + entry.toString(),
 						e);
 			}
 			
+			distributeByAnnotation(destination,
+					entry.getHeader().getSchemaName(),
+					entry.getHeader().getTableName(), rowChange);
+			distributeByImpl(destination,
+					entry.getHeader().getSchemaName(),
+					entry.getHeader().getTableName(), rowChange);
 			
-			//表结构变动处理
-			if (rowChange.hasIsDdl() && rowChange.getIsDdl()) {
-				
-				//处理实现接口的 canal 监听器
-				distributeDdlByImpl(rowChange.getEventType(),rowChange);
-				//处理通过注解方式的监听器
-				distributeDdlByAnnotation(rowChange);
-				continue;
-			}
-			//数据变动处理（这边可能需要改动成批量处理）
-			for (CanalEntry.RowData rowData : rowChange.getRowDatasList()) {
-				//处理实现接口的 canal 监听器
-				distributeByImpl(destination,
-						entry.getHeader().getSchemaName(),
-						entry.getHeader().getTableName(),
-						rowChange.getEventType(),
-						rowData);
-				//处理通过注解方式的监听器
-				distributeByAnnotation(destination,
-						entry.getHeader().getSchemaName(),
-						entry.getHeader().getTableName(),
-						rowChange.getEventType(),
-						rowData);
-			}
+		}
+	}
+	
+	/**
+	 * 处理注解方式的 canal 监听器
+	 *
+	 * @param destination canal 指令
+	 * @param schemaName  实例名称
+	 * @param tableName   表名称
+	 * @param rowChange     数据
+	 * @return
+	 * @author 阿导
+	 * @time 2018/5/28 16:35
+	 * @CopyRight 万物皆导
+	 */
+	protected void distributeByAnnotation(String destination,
+	                                      String schemaName,
+	                                      String tableName,
+	                                      CanalEntry.RowChange rowChange) {
+		
+		//对注解的监听器进行事件委托
+		if(!CollectionUtils.isEmpty(annoListeners)) {
+			annoListeners.forEach(point -> point
+					.getInvokeMap()
+					.entrySet()
+					.stream()
+					.filter(getAnnotationFilter(destination, schemaName, tableName, rowChange.getEventType()))
+					.forEach(entry -> {
+						Method method = entry.getKey();
+						method.setAccessible(true);
+						try {
+							CanalMsg canalMsg = new CanalMsg();
+							canalMsg.setDestination(destination);
+							canalMsg.setSchemaName(schemaName);
+							canalMsg.setTableName(tableName);
+							
+							Object[] args = getInvokeArgs(method, canalMsg, rowChange);
+							method.invoke(point.getTarget(), args);
+						} catch (Exception e) {
+							logger.error("{}: 委托 canal 监听器发生错误! 错误类:{}, 方法名:{}",
+									Thread.currentThread().getName(),
+									point.getTarget().getClass().getName(), method.getName());
+						}
+					}));
 		}
 	}
 	
@@ -114,8 +142,7 @@ public abstract class AbstractBasicMessageTransponder extends AbstractMessageTra
 	 * @param destination 指令
 	 * @param schemaName  库实例
 	 * @param tableName   表名
-	 * @param eventType   参数类型
-	 * @param rowData     操作数据信息
+	 * @param rowChange   參數
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 16:46
@@ -124,101 +151,14 @@ public abstract class AbstractBasicMessageTransponder extends AbstractMessageTra
 	protected void distributeByImpl(String destination,
 	                                String schemaName,
 	                                String tableName,
-	                                CanalEntry.EventType eventType,
-	                                CanalEntry.RowData rowData) {
+	                                CanalEntry.RowChange rowChange) {
 		if (contentListeners != null) {
 			for (CanalContentEventListener listener : contentListeners) {
-				listener.onEvent(destination, schemaName, tableName, eventType, rowData);
+				listener.onEvent(destination, schemaName, tableName, rowChange);
 			}
 		}
 	}
 	
-	protected void distributeDdlByImpl(CanalEntry.EventType eventType,CanalEntry.RowChange rowChange) {
-		if (tableListeners != null) {
-			for (CanalTableEventListener listener : tableListeners) {
-				listener.onEvent(eventType,rowChange);
-			}
-		}
-	}
-	
-	/**
-	 * 处理注解方式的 canal 监听器
-	 *
-	 * @param destination canal 指令
-	 * @param schemaName  实例名称
-	 * @param tableName   表名称
-	 * @param eventType   操作类型
-	 * @param rowData     数据
-	 * @return
-	 * @author 阿导
-	 * @time 2018/5/28 16:35
-	 * @CopyRight 万物皆导
-	 */
-	protected void distributeByAnnotation(String destination,
-	                                      String schemaName,
-	                                      String tableName,
-	                                      CanalEntry.EventType eventType,
-	                                      CanalEntry.RowData rowData) {
-		
-		//对注解的监听器进行事件委托
-		annoListeners.forEach(point -> point
-				.getInvokeMap()
-				.entrySet()
-				.stream()
-				.filter(getAnnotationFilter(destination, schemaName, tableName, eventType))
-				.forEach(entry -> {
-					Method method = entry.getKey();
-					method.setAccessible(true);
-					try {
-						CanalMsg canalMsg = new CanalMsg();
-						canalMsg.setDestination(destination);
-						canalMsg.setSchemaName(schemaName);
-						canalMsg.setTableName(tableName);
-						
-						Object[] args = getInvokeArgs(method, canalMsg, eventType, rowData, null);
-						method.invoke(point.getTarget(), args);
-					} catch (Exception e) {
-						logger.error("{}: 委托 canal 监听器发生错误! 错误类:{}, 方法名:{}",
-								Thread.currentThread().getName(),
-								point.getTarget().getClass().getName(), method.getName());
-					}
-				}));
-	}
-	
-	/**
-	 * 处理注解方式的 canal 监听器
-	 *
-	 * @param rowChange
-	 * @return
-	 * @author 阿导
-	 * @time 2018/5/28 16:35
-	 * @CopyRight 万物皆导
-	 */
-	protected void distributeDdlByAnnotation(CanalEntry.RowChange rowChange) {
-		
-		//对注解的监听器进行事件委托
-		annoListeners.forEach(point -> point
-				.getInvokeMap()
-				.entrySet()
-				.stream()
-				.filter(getAnnotationFilter(destination, rowChange.getDdlSchemaName(), null, rowChange.getEventType()))
-				.forEach(entry -> {
-					Method method = entry.getKey();
-					method.setAccessible(true);
-					try {
-						CanalMsg canalMsg = new CanalMsg();
-						canalMsg.setDestination(destination);
-						canalMsg.setSchemaName(rowChange.getDdlSchemaName());
-						
-						Object[] args = getInvokeArgs(method, canalMsg, null, null, rowChange);
-						method.invoke(point.getTarget(), args);
-					} catch (Exception e) {
-						logger.error("{}: 委托 canal 监听器（表结构监听器）发生错误! 错误类:{}, 方法名:{}",
-								Thread.currentThread().getName(),
-								point.getTarget().getClass().getName(), method.getName());
-					}
-				}));
-	}
 	
 	/**
 	 * 断言注解方式的监听过滤规则
@@ -240,14 +180,13 @@ public abstract class AbstractBasicMessageTransponder extends AbstractMessageTra
 	 *
 	 * @param method    委托处理的方法
 	 * @param canalMsg  其他信息
-	 * @param eventType 事件类型
-	 * @param rowData   处理的数据
+	 * @param rowChange   处理的数据
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 16:30
 	 * @CopyRight 万物皆导
 	 */
-	protected abstract Object[] getInvokeArgs(Method method, CanalMsg canalMsg, CanalEntry.EventType eventType, CanalEntry.RowData rowData, CanalEntry.RowChange rowChange);
+	protected abstract Object[] getInvokeArgs(Method method, CanalMsg canalMsg, CanalEntry.RowChange rowChange);
 	
 	
 	/**

@@ -14,20 +14,23 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class RealAlertTableOption extends AlertTableOption {
+	
 	/**
 	 * 修改表字段操作
 	 *
-	 * @param rowChange
+	 * @param destination 指令
+	 * @param schemaName  实例名称
+	 * @param tableName   表名称
+	 * @param rowChange   数据
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/29 08:59
 	 * @CopyRight 万物皆导
 	 */
 	@Override
-	public void doOption(CanalEntry.RowChange rowChange) {
+	public void doOption(String destination, String schemaName, String tableName, CanalEntry.RowChange rowChange) {
 		System.out.println("======================接口方式（修改表信息操作）==========================");
-		System.out.println("use "+rowChange.getDdlSchemaName()+";\n"+rowChange.getSql());
+		System.out.println("use "+schemaName+";\n"+rowChange.getSql());
 		System.out.println("\n======================================================");
-		
 	}
 }

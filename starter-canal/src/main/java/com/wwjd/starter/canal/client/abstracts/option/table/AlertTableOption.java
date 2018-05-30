@@ -1,7 +1,7 @@
 package com.wwjd.starter.canal.client.abstracts.option.table;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
-import com.wwjd.starter.canal.client.abstracts.option.AbstractDBTableOption;
+import com.wwjd.starter.canal.client.abstracts.option.AbstractDBOption;
 
 /**
  * 修改表操作
@@ -11,9 +11,9 @@ import com.wwjd.starter.canal.client.abstracts.option.AbstractDBTableOption;
  * @created 2018年05月29日 13:42:00
  * @Modified_By 阿导 2018/5/29 13:42
  */
-public abstract class AlertTableOption extends AbstractDBTableOption {
+public abstract class AlertTableOption extends AbstractDBOption {
 	/**
-	 * 设置修改表操作
+	 * 修改表操作
 	 *
 	 * @author 阿导
 	 * @CopyRight 萬物皆導
