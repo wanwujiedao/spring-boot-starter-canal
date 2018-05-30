@@ -36,16 +36,17 @@
 
 - 创建配置文件
 
-    1. CanalConfig：读取 spring boot 配置文件信息
+    1. [CanalConfig.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/config/CanalConfig.java)：读取 spring boot 配置文件信息
     
-    2. CanalClientConfiguration：加载 canal 配置，并启动客户端
+    2. [CanalClientConfiguration.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/config/CanalClientConfiguration.java)：加载 canal 配置，并启动客户端
 
 - 注解使其成为 spring boot 组件
-    EnableCanalClient：该注解作用是启用 canal 
+
+    [EnableCanalClient.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/EnableCanalClient.java)：该注解作用是启用 canal 
     
-- canal 客户端书写：SimpleCanalClient
+- canal 客户端书写：[SimpleCanalClient.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/core/SimpleCanalClient.java)
    
-    1. 初始化监听器（注解方式：CanalEventListener；实现接口方式【针对表结构变化】：DealTableCanalEventListener，实现接口方式【针对表数据变化】：DealContentCanalEventListener），这里通过一个工具类，BeanUtil,通过反射注入 bean (包含通过接口方式实现数据同步和注解方式的数据同步).
+    1. 初始化监听器（注解方式：[CanalEventListener.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/CanalEventListener.java)；实现接口方式【针对表结构变化】：[DealTableCanalEventListener.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/core/DealTableCanalEventListener.java)，实现接口方式【针对表数据变化】：[DealContentCanalEventListener.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/core/DealContentCanalEventListener.java)），这里通过一个工具类，BeanUtil,通过反射注入 bean (包含通过接口方式实现数据同步和注解方式的数据同步).
        
     2. 开启 canal 客户端，若是开启多个客户端，会开启多个进程。
    
@@ -53,7 +54,7 @@
  
     4. 通过线程池开启 canal 客户端，每一个客户端都是一个线程。
     
-- canal 客户端处理消息过程：AbstractBasicMessageTransponder；DefaultMessageTransponder
+- canal 客户端处理消息过程：[AbstractBasicMessageTransponder.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/AbstractBasicMessageTransponder.java)；[DefaultMessageTransponder.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/transfer/DefaultMessageTransponder.java)
 
     1. 获取消息，判断消息可用性
     
@@ -63,43 +64,43 @@
     
     4. 处理消息发生异常，等待设定的心跳时间进行重试，当重试机制次数超过指定的次数，停止 canal 客户端，结束线程。
     
-- canal 处理消息操作，主要通过反射和代理模式实现：ListenPoint；AbstractDBOption
+- canal 处理消息操作，主要通过反射和代理模式实现：[ListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/ListenPoint.java)；[AbstractDBOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/AbstractDBOption.java)
 
     1. 创建表操作
         
-        通过注解方式：CreateTableListenPoint
+        通过注解方式：[CreateTableListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/CreateTableListenPoint.java)
         
-        实现接口方式：CreateTableOption
+        实现接口方式：[CreateTableOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/table/CreateTableOption.java)
     
     2. 删除表操作
     
-        通过注解方式：DropTableListenPoint
+        通过注解方式：[DropTableListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/DropTableListenPoint.java)
          
-        实现接口方式：DropTableOption      
+        实现接口方式：[DropTableOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/table/DropTableOption.java)      
     
     3. 修改表信息
     
-        通过注解方式：AlertTableListenPoint
+        通过注解方式：[AlertTableListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/AlertTableListenPoint.java)
         
-        实现接口方式：AlertTableOption    
+        实现接口方式：[AlertTableOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/table/AlertTableOption.java)    
     
     4. 新增数据
  
-        通过注解方式：InsertOption
+        通过注解方式：[InsertListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/InsertListenPoint.java)
         
-        实现接口方式：InsertListenPoint
+        实现接口方式：[InsertOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/content/InsertOption.java)
             
     5. 更新数据
 
-        通过注解方式：UpdateListenPoint
+        通过注解方式：[UpdateListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/UpdateListenPoint.java)
         
-        实现接口方式：UpdateOption
+        实现接口方式：[UpdateOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/content/UpdateOption.java)
             
     6. 删除数据
     
-        通过注解方式：DeleteListenPoint
+        通过注解方式：[DeleteListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/DeleteListenPoint.java)
         
-        实现接口方式：DeleteOption  
+        实现接口方式：[DeleteOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/content/DeleteOption.java)  
         
 - 整个流程是怎么运行的呢？下面请允许我通过流程图的方式呈现出来
 
@@ -160,10 +161,10 @@
 
 ####### 假若你所有的环境都搞定了，包括 mysql 开启 binlog 日志，canal 伪装从数据库连接到 mysql 等，然后配置信息都正确，那就开始正文了
 
-- 通过继承接口的方式处理数据：针对表数据变化的：MyContentEventListenerimpl.java,针对表结构变化的：MyTableEventListener.java
+- 通过继承接口的方式处理数据：针对表数据变化的：[MyContentEventListenerimpl.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/canal-test/src/main/java/com/wwjd/canal/canaltest/test/MyContentEventListenerimpl.java),针对表结构变化的：[MyTableEventListener.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/canal-test/src/main/java/com/wwjd/canal/canaltest/test/MyTableEventListener.java)
 
 
-- 通过注解的方式处理数据：MyAnnoEventListener.java
+- 通过注解的方式处理数据：[MyAnnoEventListener.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/canal-test/src/main/java/com/wwjd/canal/canaltest/test/MyAnnoEventListener.java)
 
 ###### 启动服务，操作 db，观察数据，至于你想对这些数据干什么，只要不作奸犯科，那随你便了....
 
