@@ -10,6 +10,7 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
  * @created 2018年05月29日 14:10:00
  * @Modified_By 阿导 2018/5/29 14:10
  */
+@FunctionalInterface
 public interface IDBTableOption {
 	
 	/**

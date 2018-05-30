@@ -3,8 +3,9 @@ package com.wwjd.starter.canal.client.abstracts;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.exception.CanalClientException;
-import com.wwjd.starter.canal.client.interfaces.CanalClient;
-import com.wwjd.starter.canal.client.interfaces.TransponderFactory;
+import com.wwjd.starter.canal.client.core.ListenerPoint;
+import com.wwjd.starter.canal.client.interfaces.*;
+import com.wwjd.starter.canal.client.transfer.DefaultMessageTransponder;
 import com.wwjd.starter.canal.config.CanalConfig;
 import org.apache.commons.lang.StringUtils;
 
@@ -49,15 +50,16 @@ public abstract class AbstractCanalClient implements CanalClient {
 	 * @time 2018/5/28 15:04
 	 * @CopyRight 万物皆导
 	 * @param canalConfig
-	 * @param factory
 	 */
-	protected AbstractCanalClient(CanalConfig canalConfig, TransponderFactory factory) {
+	protected AbstractCanalClient(CanalConfig canalConfig) {
 		//参数校验
 		Objects.requireNonNull(canalConfig, "canalConfig 不能为空!");
 		Objects.requireNonNull(canalConfig, "transponderFactory 不能为空!");
 		//初始化配置
 		this.canalConfig = canalConfig;
-		this.factory = factory;
+//		this.factory = factory;
+		this.factory = (connector, config, contentListeners, tableListeners, annoListeners) -> new DefaultMessageTransponder(connector, config, contentListeners,tableListeners, annoListeners);
+		;
 	}
 	
 	/**

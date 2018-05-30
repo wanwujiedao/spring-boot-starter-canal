@@ -3,7 +3,6 @@ package com.wwjd.starter.canal.config;
 
 import com.wwjd.starter.canal.client.core.SimpleCanalClient;
 import com.wwjd.starter.canal.client.interfaces.CanalClient;
-import com.wwjd.starter.canal.client.transfer.MessageTransponders;
 import com.wwjd.starter.canal.util.BeanUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +52,8 @@ public class CanalClientConfiguration {
     private CanalClient canalClient() {
         logger.info("正在尝试连接 canal 客户端....");
         //连接 canal 客户端
-        CanalClient canalClient = new SimpleCanalClient(canalConfig, MessageTransponders.defaultMessageTransponder());
+//        CanalClient canalClient = new SimpleCanalClient(canalConfig, MessageTransponders.defaultMessageTransponder());
+        CanalClient canalClient = new SimpleCanalClient(canalConfig);
         logger.info("正在尝试开启 canal 客户端....");
         //开启 canal 客户端
         canalClient.start();

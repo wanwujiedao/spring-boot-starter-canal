@@ -10,6 +10,7 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
  * @created 2018/5/28 16:37
  * @Modified_By 阿导 2018/5/28 16:37
  */
+@FunctionalInterface
 public interface CanalTableEventListener {
 	
 	

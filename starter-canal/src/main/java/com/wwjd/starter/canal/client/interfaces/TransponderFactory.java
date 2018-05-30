@@ -15,6 +15,7 @@ import java.util.Map;
  * @created 2018/5/28 14:33
  * @Modified_By 阿导 2018/5/28 14:33
  */
+@FunctionalInterface
 public interface TransponderFactory {
 	
 	/**

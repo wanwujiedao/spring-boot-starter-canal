@@ -5,7 +5,6 @@ import com.wwjd.starter.canal.annotation.ListenPoint;
 import com.wwjd.starter.canal.client.abstracts.AbstractCanalClient;
 import com.wwjd.starter.canal.client.interfaces.CanalContentEventListener;
 import com.wwjd.starter.canal.client.interfaces.CanalTableEventListener;
-import com.wwjd.starter.canal.client.interfaces.TransponderFactory;
 import com.wwjd.starter.canal.config.CanalConfig;
 import com.wwjd.starter.canal.util.BeanUtil;
 import org.slf4j.Logger;
@@ -56,14 +55,13 @@ public class SimpleCanalClient extends AbstractCanalClient {
 	 * 构造方法，进行一些基本信息初始化
 	 *
 	 * @param canalConfig
-	 * @param factory
 	 * @return
 	 * @author 阿导
 	 * @time 2018/5/28 15:33
 	 * @CopyRight 万物皆导
 	 */
-	public SimpleCanalClient(CanalConfig canalConfig, TransponderFactory factory) {
-		super(canalConfig, factory);
+	public SimpleCanalClient(CanalConfig canalConfig) {
+		super(canalConfig);
 		//这边上可能需要调整，紧跟德叔脚步走，默认核心线程数5个，最大线程数20个，线程两分钟分钟不执行就。。。
 		executor = new ThreadPoolExecutor(5, 20,
 				120L, TimeUnit.SECONDS,
