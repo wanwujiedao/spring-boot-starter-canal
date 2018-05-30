@@ -4,7 +4,7 @@ package com.wwjd.starter.canal.client.exception;
  * canal 操作的异常类
  *
  * @author 阿导
- * @CopyRight 杭州弧途科技有限公司(万物皆导)
+ * @CopyRight 萬物皆導
  * @created 2018/5/28 16:39
  * @Modified_By 阿导 2018/5/28 16:39
  */

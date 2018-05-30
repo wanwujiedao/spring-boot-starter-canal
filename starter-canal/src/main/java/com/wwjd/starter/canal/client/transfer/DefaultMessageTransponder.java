@@ -23,7 +23,7 @@ import java.util.function.Predicate;
  * 默認的信息轉換器
  *
  * @author 阿导
- * @CopyRight 杭州弧途科技有限公司(万物皆导)
+ * @CopyRight 萬物皆導
  * @created 2018/5/28 17:21
  * @Modified_By 阿导 2018/5/28 17:21
  */

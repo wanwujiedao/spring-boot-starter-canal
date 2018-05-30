@@ -33,7 +33,7 @@ public abstract class AbstractDBOption {
 	 * 进行类型设置
 	 *
 	 * @author 阿导
-	 * @CopyRight 杭州弧途科技有限公司(万物皆导)
+	 * @CopyRight 萬物皆導
 	 * @created 2018/5/29 09:21
 	 */
 	protected abstract void setEventType();

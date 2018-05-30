@@ -16,7 +16,7 @@ public abstract class AlertTableOption extends AbstractDBTableOption {
 	 * 设置修改表操作
 	 *
 	 * @author 阿导
-	 * @CopyRight 杭州弧途科技有限公司(万物皆导)
+	 * @CopyRight 萬物皆導
 	 * @created 2018/5/29 09:21
 	 */
 	@Override
