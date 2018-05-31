@@ -68,37 +68,55 @@
 
     1. 创建表操作
         
-        通过注解方式：[CreateTableListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/CreateTableListenPoint.java)
+        通过注解方式：[CreateTableListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/table/CreateTableListenPoint.java)
         
         实现接口方式：[CreateTableOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/table/CreateTableOption.java)
     
     2. 删除表操作
     
-        通过注解方式：[DropTableListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/DropTableListenPoint.java)
+        通过注解方式：[DropTableListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/table/DropTableListenPoint.java)
          
         实现接口方式：[DropTableOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/table/DropTableOption.java)      
     
     3. 修改表信息
     
-        通过注解方式：[AlertTableListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/AlertTableListenPoint.java)
+        通过注解方式：[AlertTableListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/table/AlertTableListenPoint.java)
         
         实现接口方式：[AlertTableOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/table/AlertTableOption.java)    
     
-    4. 新增数据
+    4. 重新命名表
+    
+        通过注解方式：[RenameTableListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/tree/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/table/RenameTableListenPoint.java)
+        
+        实现接口方式：[RenameTableOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/tree/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/table/RenameTableOption.java)
+        
+    5. 创建索引
+    
+        通过注解方式：[CreateIndexListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/tree/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/table/CreateIndexListenPoint.java)
+            
+        实现接口方式：[CreateIndexOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/tree/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/table/CreateIndexOption.java)
+    
+    6. 删除索引
+    
+        通过注解方式：[DropIndexListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/tree/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/table/DropIndexListenPoint.java)
+              
+        实现接口方式：[DropIndexOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/tree/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/table/DropIndexOption.java)
+    
+    7. 新增数据
  
-        通过注解方式：[InsertListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/InsertListenPoint.java)
+        通过注解方式：[InsertListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/content/InsertListenPoint.java)
         
         实现接口方式：[InsertOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/content/InsertOption.java)
             
-    5. 更新数据
+    8. 更新数据
 
-        通过注解方式：[UpdateListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/UpdateListenPoint.java)
+        通过注解方式：[UpdateListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/content/UpdateListenPoint.java)
         
         实现接口方式：[UpdateOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/content/UpdateOption.java)
             
-    6. 删除数据
+    9. 删除数据
     
-        通过注解方式：[DeleteListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/DeleteListenPoint.java)
+        通过注解方式：[DeleteListenPoint.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/content/DeleteListenPoint.java)
         
         实现接口方式：[DeleteOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/content/DeleteOption.java)  
         
