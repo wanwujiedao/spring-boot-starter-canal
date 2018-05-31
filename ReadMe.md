@@ -46,7 +46,7 @@
     
 - canal 客户端书写：[SimpleCanalClient.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/core/SimpleCanalClient.java)
    
-    1. 初始化监听器（注解方式：[CanalEventListener.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/CanalEventListener.java)；实现接口方式【针对表结构变化】：[DealTableCanalEventListener.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/core/DealTableCanalEventListener.java)，实现接口方式【针对表数据变化】：[DealContentCanalEventListener.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/core/DealContentCanalEventListener.java)），这里通过一个工具类，BeanUtil,通过反射注入 bean (包含通过接口方式实现数据同步和注解方式的数据同步).
+    1. 初始化监听器（注解方式：[CanalEventListener.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/annotation/CanalEventListener.java)；实现接口方式：[DealCanalEventListener.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/core/DealCanalEventListener.java)），这里通过一个工具类，BeanUtil,通过反射注入 bean (包含通过接口方式实现数据同步和注解方式的数据同步).
        
     2. 开启 canal 客户端，若是开启多个客户端，会开启多个进程。
    
@@ -161,7 +161,7 @@
 
 ####### 假若你所有的环境都搞定了，包括 mysql 开启 binlog 日志，canal 伪装从数据库连接到 mysql 等，然后配置信息都正确，那就开始正文了
 
-- 通过继承接口的方式处理数据：针对表数据变化的：[MyContentEventListenerimpl.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/canal-test/src/main/java/com/wwjd/canal/canaltest/test/MyContentEventListenerimpl.java),针对表结构变化的：[MyTableEventListener.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/canal-test/src/main/java/com/wwjd/canal/canaltest/test/MyTableEventListener.java)
+- 通过继承接口的方式处理数据：[MyEventListenerimpl.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/canal-test/src/main/java/com/wwjd/canal/canaltest/test/MyEventListenerimpl.java)
 
 
 - 通过注解的方式处理数据：[MyAnnoEventListener.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/canal-test/src/main/java/com/wwjd/canal/canaltest/test/MyAnnoEventListener.java)
