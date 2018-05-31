@@ -102,9 +102,9 @@
         
         实现接口方式：[DeleteOption.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/starter-canal/src/main/java/com/wwjd/starter/canal/client/abstracts/option/content/DeleteOption.java)  
         
-- 整个流程是怎么运行的呢？下面请允许我通过流程图的方式呈现出来
+- 整个流程是怎么运行的呢？下面请允许我通过流程图的方式呈现出来【放大后更清晰】
 
-  ![canal 流程示意图](http://i1.17173cdn.com/1tx6lh/YWxqaGBf/images/bg/Diana_Splash_3.jpg)
+  ![canal 流程示意图](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/canal%20UML.jpg?raw=true)
   
 ***
 
