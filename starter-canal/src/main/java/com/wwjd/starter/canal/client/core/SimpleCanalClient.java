@@ -8,7 +8,7 @@ import com.wwjd.starter.canal.config.CanalConfig;
 import com.wwjd.starter.canal.util.BeanUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -127,8 +127,8 @@ public class SimpleCanalClient extends AbstractCanalClient {
 				Method[] methods = target.getClass().getDeclaredMethods();
 				if (methods != null && methods.length > 0) {
 					for (Method method : methods) {
-						//获取监听的节点
-						ListenPoint l = AnnotationUtils.findAnnotation(method, ListenPoint.class);
+						//获取监听的节点,感谢 JKwangzhicheng 提出的 bug ，这边我查了一些资料，发现工具类用错了，AnnotatedElementUtils 支持子注解覆盖父注解的属性，而 AnnotationUtils 则不可以，大家今后可以通过不同的需求使用对应的工具类
+						ListenPoint l = AnnotatedElementUtils.findMergedAnnotation(method, ListenPoint.class);
 						if (l != null) {
 							annoListeners.add(new ListenerPoint(target, method, l));
 						}
