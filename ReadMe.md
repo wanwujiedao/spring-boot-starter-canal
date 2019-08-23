@@ -184,6 +184,7 @@
 
 - 通过注解的方式处理数据：[MyAnnoEventListener.java](https://github.com/wanwujiedao/spring-boot-starter-canal/blob/master/canal-test/src/main/java/com/wwjd/canal/canaltest/test/MyAnnoEventListener.java)
 
+
 ###### 启动服务，操作 db，观察数据，至于你想对这些数据干什么，只要不作奸犯科，那随你便了....
 
 ```markdown
