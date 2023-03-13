@@ -5,6 +5,7 @@ import com.wwjd.starter.canal.annotation.ListenPoint;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
+
 /**
  * 新增操作监听器
  *

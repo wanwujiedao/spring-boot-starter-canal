@@ -23,30 +23,30 @@ public class CanalClientConfiguration {
      */
     @Autowired
     private CanalConfig canalConfig;
-    
+
     /**
      * 返回 bean 工具类
      *
+     * @param
+     * @return
      * @author 阿导
      * @time 2018/5/28 14:14
      * @CopyRight 万物皆导
-     * @param
-     * @return
      */
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public BeanUtil beanUtil() {
         return new BeanUtil();
     }
-    
+
     /**
      * 返回 canal 的客户端
      *
+     * @param
+     * @return
      * @author 阿导
      * @time 2018/5/28 14:15
      * @CopyRight 万物皆导
-     * @param
-     * @return
      */
     @Bean
     private CanalClient canalClient() {

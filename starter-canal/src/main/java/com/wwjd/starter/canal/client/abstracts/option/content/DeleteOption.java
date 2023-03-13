@@ -13,19 +13,19 @@ import com.wwjd.starter.canal.client.abstracts.option.AbstractDBOption;
  */
 
 public abstract class DeleteOption extends AbstractDBOption {
-	
-	/**
-	 * 设置删除操作
-	 *
-	 * @param
-	 * @return
-	 * @author 阿导
-	 * @time 2018/5/29 09:22
-	 * @CopyRight 万物皆导
-	 */
-	@Override
-	protected void setEventType() {
-		this.eventType = CanalEntry.EventType.DELETE;
-	}
-	
+
+    /**
+     * 设置删除操作
+     *
+     * @param
+     * @return
+     * @author 阿导
+     * @time 2018/5/29 09:22
+     * @CopyRight 万物皆导
+     */
+    @Override
+    protected void setEventType() {
+        this.eventType = CanalEntry.EventType.DELETE;
+    }
+
 }

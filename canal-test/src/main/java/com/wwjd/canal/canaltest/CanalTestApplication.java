@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 public class CanalTestApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CanalTestApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CanalTestApplication.class, args);
+    }
 }

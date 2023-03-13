@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface Mapper {
-	@Insert("${sql}")
-	void doOption(@Param("sql") String sql);
+    @Insert("${sql}")
+    void doOption(@Param("sql") String sql);
 }

@@ -12,18 +12,18 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
  */
 @FunctionalInterface
 public interface IDBOption {
-	
-	/**
-	 * 操作
-	 *
-	 * @param destination 指令
-	 * @param schemaName  实例名称
-	 * @param tableName   表名称
-	 * @param rowChange     数据
-	 * @return
-	 * @author 阿导
-	 * @time 2018/5/29 08:59
-	 * @CopyRight 万物皆导
-	 */
-	void doOption(String destination, String schemaName, String tableName, CanalEntry.RowChange rowChange);
+
+    /**
+     * 操作
+     *
+     * @param destination 指令
+     * @param schemaName  实例名称
+     * @param tableName   表名称
+     * @param rowChange   数据
+     * @return
+     * @author 阿导
+     * @time 2018/5/29 08:59
+     * @CopyRight 万物皆导
+     */
+    void doOption(String destination, String schemaName, String tableName, CanalEntry.RowChange rowChange);
 }
