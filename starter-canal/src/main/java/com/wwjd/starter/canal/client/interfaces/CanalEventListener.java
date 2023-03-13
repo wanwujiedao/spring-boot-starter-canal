@@ -12,20 +12,20 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
  */
 @FunctionalInterface
 public interface CanalEventListener {
-	
-	
-	/**
-	 * 处理事件
-	 *
-	 * @param destination 指令
-	 * @param schemaName  库实例
-	 * @param tableName   表名
-	 * @param rowChange   詳細參數
-	 * @return
-	 * @author 阿导
-	 * @time 2018/5/28 16:37
-	 * @CopyRight 万物皆导
-	 */
-	void onEvent(String destination, String schemaName, String tableName, CanalEntry.RowChange rowChange);
-	
+
+
+    /**
+     * 处理事件
+     *
+     * @param destination 指令
+     * @param schemaName  库实例
+     * @param tableName   表名
+     * @param rowChange   詳細參數
+     * @return
+     * @author 阿导
+     * @time 2018/5/28 16:37
+     * @CopyRight 万物皆导
+     */
+    void onEvent(String destination, String schemaName, String tableName, CanalEntry.RowChange rowChange);
+
 }

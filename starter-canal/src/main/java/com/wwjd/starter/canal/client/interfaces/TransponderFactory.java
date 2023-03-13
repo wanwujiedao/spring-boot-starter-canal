@@ -17,16 +17,16 @@ import java.util.Map;
  */
 @FunctionalInterface
 public interface TransponderFactory {
-	
-	/**
-	 * @param connector        canal 连接工具
-	 * @param config           canal 链接信息
-	 * @param listeners 实现接口的监听器
-	 * @param annoListeners    注解监听拦截
-	 * @return
-	 * @author 阿导
-	 * @time 2018/5/28 14:43
-	 * @CopyRight 万物皆导
-	 */
-	MessageTransponder newTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalEventListener> listeners, List<ListenerPoint> annoListeners);
+
+    /**
+     * @param connector     canal 连接工具
+     * @param config        canal 链接信息
+     * @param listeners     实现接口的监听器
+     * @param annoListeners 注解监听拦截
+     * @return
+     * @author 阿导
+     * @time 2018/5/28 14:43
+     * @CopyRight 万物皆导
+     */
+    MessageTransponder newTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalEventListener> listeners, List<ListenerPoint> annoListeners);
 }

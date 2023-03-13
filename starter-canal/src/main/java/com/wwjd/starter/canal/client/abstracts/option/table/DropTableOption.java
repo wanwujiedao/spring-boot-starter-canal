@@ -12,16 +12,16 @@ import com.wwjd.starter.canal.client.abstracts.option.AbstractDBOption;
  * @Modified_By 阿导 2018/5/29 13:41
  */
 public abstract class DropTableOption extends AbstractDBOption {
-	
-	/**
-	 * 删除表操作
-	 *
-	 * @author 阿导
-	 * @CopyRight 萬物皆導
-	 * @created 2018/5/29 09:21
-	 */
-	@Override
-	protected void setEventType() {
-		this.eventType = CanalEntry.EventType.ERASE;
-	}
+
+    /**
+     * 删除表操作
+     *
+     * @author 阿导
+     * @CopyRight 萬物皆導
+     * @created 2018/5/29 09:21
+     */
+    @Override
+    protected void setEventType() {
+        this.eventType = CanalEntry.EventType.ERASE;
+    }
 }

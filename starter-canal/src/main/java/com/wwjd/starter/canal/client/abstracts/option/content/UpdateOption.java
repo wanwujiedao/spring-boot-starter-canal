@@ -13,20 +13,20 @@ import com.wwjd.starter.canal.client.abstracts.option.AbstractDBOption;
  */
 
 public abstract class UpdateOption extends AbstractDBOption {
-	
-	
-	/**
-	 * 设置更新属性
-	 *
-	 * @param
-	 * @return
-	 * @author 阿导
-	 * @time 2018/5/29 09:27
-	 * @CopyRight 万物皆导
-	 */
-	@Override
-	protected void setEventType() {
-		this.eventType = CanalEntry.EventType.UPDATE;
-	}
-	
+
+
+    /**
+     * 设置更新属性
+     *
+     * @param
+     * @return
+     * @author 阿导
+     * @time 2018/5/29 09:27
+     * @CopyRight 万物皆导
+     */
+    @Override
+    protected void setEventType() {
+        this.eventType = CanalEntry.EventType.UPDATE;
+    }
+
 }

@@ -17,49 +17,49 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface ListenPoint {
-	
-	/**
-	 * canal 指令
-	 * default for all
-	 *
-	 * @return canal destination
-	 * @author 阿导
-	 * @time 2018/5/28 15:49
-	 * @CopyRight 万物皆导
-	 */
-	String destination() default "";
-	
-	/**
-	 * 数据库实例
-	 *
-	 * @return canal destination
-	 * @author 阿导
-	 * @time 2018/5/28 15:49
-	 * @CopyRight 万物皆导
-	 */
-	String[] schema() default {};
-	
-	/**
-	 * 监听的表
-	 * default for all
-	 *
-	 * @return canal destination
-	 * @author 阿导
-	 * @time 2018/5/28 15:50
-	 * @CopyRight 万物皆导
-	 */
-	String[] table() default {};
-	
-	/**
-	 * 监听操作的类型
-	 * <p>
-	 * default for all
-	 *
-	 * @return canal event type
-	 * @author 阿导
-	 * @time 2018/5/28 15:50
-	 * @CopyRight 万物皆导
-	 */
-	CanalEntry.EventType[] eventType() default {};
-	
+
+    /**
+     * canal 指令
+     * default for all
+     *
+     * @return canal destination
+     * @author 阿导
+     * @time 2018/5/28 15:49
+     * @CopyRight 万物皆导
+     */
+    String destination() default "";
+
+    /**
+     * 数据库实例
+     *
+     * @return canal destination
+     * @author 阿导
+     * @time 2018/5/28 15:49
+     * @CopyRight 万物皆导
+     */
+    String[] schema() default {};
+
+    /**
+     * 监听的表
+     * default for all
+     *
+     * @return canal destination
+     * @author 阿导
+     * @time 2018/5/28 15:50
+     * @CopyRight 万物皆导
+     */
+    String[] table() default {};
+
+    /**
+     * 监听操作的类型
+     * <p>
+     * default for all
+     *
+     * @return canal event type
+     * @author 阿导
+     * @time 2018/5/28 15:50
+     * @CopyRight 万物皆导
+     */
+    CanalEntry.EventType[] eventType() default {};
+
 }

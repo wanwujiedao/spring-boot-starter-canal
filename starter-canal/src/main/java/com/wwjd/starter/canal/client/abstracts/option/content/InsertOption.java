@@ -13,19 +13,19 @@ import com.wwjd.starter.canal.client.abstracts.option.AbstractDBOption;
  */
 
 public abstract class InsertOption extends AbstractDBOption {
-	
-	
-	/**
-	 * 设置新增操作
-	 *
-	 * @param
-	 * @return
-	 * @author 阿导
-	 * @time 2018/5/29 09:24
-	 * @CopyRight 万物皆导
-	 */
-	@Override
-	protected void setEventType() {
-		this.eventType = CanalEntry.EventType.INSERT;
-	}
+
+
+    /**
+     * 设置新增操作
+     *
+     * @param
+     * @return
+     * @author 阿导
+     * @time 2018/5/29 09:24
+     * @CopyRight 万物皆导
+     */
+    @Override
+    protected void setEventType() {
+        this.eventType = CanalEntry.EventType.INSERT;
+    }
 }

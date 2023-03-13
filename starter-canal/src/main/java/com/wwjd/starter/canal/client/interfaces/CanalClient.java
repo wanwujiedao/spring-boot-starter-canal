@@ -15,34 +15,34 @@ public interface CanalClient {
     /**
      * 开启 canal 客户端，并根绝配置连接到 canal ,然后进行针对性的监听
      *
+     * @param
+     * @return
      * @author 阿导
      * @time 2018/5/28 14:10
      * @CopyRight 万物皆导
-     * @param
-     * @return
      */
     void start();
-    
-    
+
+
     /**
      * 关闭 canal 客户端
      *
+     * @param
+     * @return
      * @author 阿导
      * @time 2018/5/28 14:12
      * @CopyRight 万物皆导
-     * @param
-     * @return
      */
     void stop();
-    
+
     /**
      * 判断 canal 客户端是否是开启状态
      *
+     * @param
+     * @return
      * @author 阿导
      * @time 2018/5/28 14:12
      * @CopyRight 万物皆导
-     * @param
-     * @return
      */
     boolean isRunning();
 }

@@ -12,15 +12,15 @@ import com.wwjd.starter.canal.client.abstracts.option.AbstractDBOption;
  * @Modified_By 阿导 2018/5/29 13:42
  */
 public abstract class AlertTableOption extends AbstractDBOption {
-	/**
-	 * 修改表操作
-	 *
-	 * @author 阿导
-	 * @CopyRight 萬物皆導
-	 * @created 2018/5/29 09:21
-	 */
-	@Override
-	protected void setEventType() {
-		this.eventType = CanalEntry.EventType.ALTER;
-	}
+    /**
+     * 修改表操作
+     *
+     * @author 阿导
+     * @CopyRight 萬物皆導
+     * @created 2018/5/29 09:21
+     */
+    @Override
+    protected void setEventType() {
+        this.eventType = CanalEntry.EventType.ALTER;
+    }
 }

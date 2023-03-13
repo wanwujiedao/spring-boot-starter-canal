@@ -20,26 +20,26 @@ import java.lang.annotation.*;
 @Documented
 @ListenPoint(eventType = CanalEntry.EventType.ERASE)
 public @interface DropTableListenPoint {
-	/**
-	 * canal 指令
-	 * default for all
-	 *
-	 * @return canal destination
-	 * @author 阿导
-	 * @time 2018/5/28 15:49
-	 * @CopyRight 万物皆导
-	 */
-	@AliasFor(annotation = ListenPoint.class)
-	String destination() default "";
-	
-	/**
-	 * 数据库实例
-	 *
-	 * @return canal destination
-	 * @author 阿导
-	 * @time 2018/5/28 15:49
-	 * @CopyRight 万物皆导
-	 */
-	@AliasFor(annotation = ListenPoint.class)
-	String[] schema() default {};
+    /**
+     * canal 指令
+     * default for all
+     *
+     * @return canal destination
+     * @author 阿导
+     * @time 2018/5/28 15:49
+     * @CopyRight 万物皆导
+     */
+    @AliasFor(annotation = ListenPoint.class)
+    String destination() default "";
+
+    /**
+     * 数据库实例
+     *
+     * @return canal destination
+     * @author 阿导
+     * @time 2018/5/28 15:49
+     * @CopyRight 万物皆导
+     */
+    @AliasFor(annotation = ListenPoint.class)
+    String[] schema() default {};
 }

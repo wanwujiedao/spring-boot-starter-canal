@@ -29,24 +29,24 @@ public class CanalConfig {
     /**
      * 返回实例
      *
+     * @param
+     * @return
      * @author 阿导
      * @time 2018/5/28 14:20
      * @CopyRight 万物皆导
-     * @param
-     * @return
      */
     public Map<String, Instance> getInstances() {
         return instances;
     }
-    
+
     /**
      * 设置实例
      *
+     * @param instances
+     * @return
      * @author 阿导
      * @time 2018/5/28 14:20
      * @CopyRight 万物皆导
-     * @param instances
-     * @return
      */
     public void setInstances(Map<String, Instance> instances) {
         this.instances = instances;
@@ -108,7 +108,8 @@ public class CanalConfig {
          */
         private long acquireInterval = 1000;
 
-        public Instance() {}
+        public Instance() {
+        }
 
         public boolean isClusterEnabled() {
             return clusterEnabled;
